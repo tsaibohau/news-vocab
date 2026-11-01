@@ -4,10 +4,10 @@ export const LEVELS = [500, 1000, 1500, 2000, 2500];
 
 // 依「已知字覆蓋率」判斷難度（Nation 的 95% / 98% 門檻）
 export function difficultyOf(coverage) {
-  if (coverage >= 0.98) return { key: 'easy', label: '輕鬆' };
-  if (coverage >= 0.95) return { key: 'ok', label: '適中' };
-  if (coverage >= 0.90) return { key: 'hard', label: '有挑戰' };
-  return { key: 'vhard', label: '困難' };
+  if (coverage >= 0.98) return { key: 'easy' };
+  if (coverage >= 0.95) return { key: 'ok' };
+  if (coverage >= 0.90) return { key: 'hard' };
+  return { key: 'vhard' };
 }
 
 // lex = createLexicon(...) 的結果；level = 使用者已知的 NGSL 前幾名

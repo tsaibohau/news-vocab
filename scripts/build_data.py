@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""建置 data/ngsl.json 與 data/dict.json。
+"""建置 data/ngsl.json、data/dict.json（音標＋英英）與 data/dict-zh.json（中文，需要時才載入）。
 
 用法（在 repo 根目錄）：
     pip install opencc-python-reimplemented
@@ -19,20 +19,27 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, "data", "raw", "ngsl")
 STATS = os.path.join(RAW, "NGSL_1.2_stats.csv")
 FORMS = os.path.join(RAW, "NGSL_1.2_lemmatized_for_research.csv")
+DEFS = os.path.join(RAW, "NGSL_1.2_with_English_definitions.csv")
 ECDICT_URL = "https://raw.githubusercontent.com/skywind3000/ECDICT/master/ecdict.csv"
 
 # 原始檔的 SHA-256，確保來源沒變
 SHA = {
     STATS: "2098bab8955a120a9766c6282a51d7d578c6cb0a7d946600d2ffb73ba25a0b44",
     FORMS: "d814f2a0a3c61479a2c5ad037661719a0cc6e7dbcde31f181b54f12d0f1e11a4",
+    DEFS: "27ff5d3dc9b9174e3b788d218298ad284326b1552378680e6a2c34071acf864d",
 }
 
 COMMON_LIMIT = 20000  # ECDICT 詞頻（frq 或 bnc）前幾名算「常見字」
-MAX_SENSES = 3        # 每個字最多留幾行解釋
+MAX_SENSES = 3        # 每個字最多留幾行中文解釋
+MAX_EN_SENSES = 2     # 英文解釋（WordNet）較長，留 2 行
 WORD_RE = re.compile(r"^[a-z]+$")
 # NGSL 字在 ECDICT 裡沒有可用中文時，改用這個拼法的條目
 ALIASES = {"online": "on-line"}
 KEEP_HEADWORD = {"wound"}
+# NGSL 英英定義檔裡拼法不同的詞頭
+DEF_ALIASES = {"email": "e-mail"}
+# ECDICT 英文解釋（WordNet）的詞性代號
+EN_POS = {"n": "n.", "v": "v.", "a": "adj.", "s": "adj.", "r": "adv."}
 
 
 def sha256(path):
@@ -90,6 +97,31 @@ def clean_translation(text, cc):
     return cc.convert("\n".join(lines))
 
 
+def clean_english(text):
+    lines = []
+    for line in text.replace("\\n", "\n").split("\n"):
+        line = line.strip()
+        m = re.match(r"^([nvasr])\.?\s+(.*)$", line)
+        if m:
+            line = f"{EN_POS[m.group(1)]} {m.group(2)}"
+        if line:
+            lines.append(line)
+        if len(lines) >= MAX_EN_SENSES:
+            break
+    return "\n".join(lines)
+
+
+def load_ngsl_defs():
+    defs = {}
+    with open(DEFS, encoding="utf-8-sig") as f:
+        for line in f.read().splitlines()[1:]:
+            word, _, d = line.partition(":")
+            d = d.replace("\u00a0", " ").replace("\u200b", "").strip().strip('"').strip()
+            if d:
+                defs[word.strip().lower()] = d
+    return defs
+
+
 def build_dict(path, rank, ngsl_forms):
     from opencc import OpenCC
     cc = OpenCC("s2twp")
@@ -128,7 +160,7 @@ def build_dict(path, rank, ngsl_forms):
         trans = clean_translation(r["translation"], cc)
         if not trans:
             continue
-        entries[key] = [r["phonetic"].strip(), trans]
+        entries[key] = [r["phonetic"].strip(), trans, clean_english(r["definition"])]
     def add_form(form, lemma):
         form = form.strip().lower()
         if WORD_RE.match(form) and form != lemma and lemma in entries \
@@ -161,16 +193,34 @@ def main():
     entries, extra_forms = build_dict(path, rank, forms)
 
     missing = [w for w in order if w not in entries]
+    ngsl_defs = load_ngsl_defs()
+    no_def = []
+    en_dict, zh_dict = {}, {}
+    for word, (phon, zh, en) in entries.items():
+        if word in rank:
+            d = ngsl_defs.get(DEF_ALIASES.get(word, word))
+            if d:
+                en = d
+            else:
+                no_def.append(word)
+        en_dict[word] = [phon, en]
+        zh_dict[word] = zh
     out = os.path.join(ROOT, "data")
     with open(os.path.join(out, "ngsl.json"), "w", encoding="utf-8") as f:
         json.dump({"version": "NGSL 1.2", "lemmas": order, "forms": forms},
                   f, ensure_ascii=False, separators=(",", ":"))
     with open(os.path.join(out, "dict.json"), "w", encoding="utf-8") as f:
-        json.dump({"source": "ECDICT (MIT)", "entries": entries, "forms": extra_forms},
+        json.dump({"source": "NGSL 1.2 English definitions (CC BY-SA 4.0); ECDICT (MIT)",
+                   "entries": en_dict, "forms": extra_forms},
+                  f, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+    with open(os.path.join(out, "dict-zh.json"), "w", encoding="utf-8") as f:
+        json.dump({"source": "ECDICT (MIT), OpenCC s2twp", "entries": zh_dict},
                   f, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
     print(f"NGSL 詞頭 {len(order)}，字形 {len(forms)}")
     print(f"字典 {len(entries)} 筆，額外字形 {len(extra_forms)}")
     print(f"NGSL 字沒有中文解釋：{len(missing)} {missing[:20]}")
+    print(f"NGSL 字沒有英英定義：{len(no_def)} {no_def[:20]}")
+    print(f"非 NGSL 字沒有英文解釋：{sum(1 for w, v in en_dict.items() if not v[1])}")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,8 @@
-// 共用的小工具：跳脫 HTML、提示、底部彈出、發音、日期文字
+// 共用的小工具：跳脫 HTML、提示、底部彈出、發音、日期文字、字的解釋區塊
 import { daysBetween } from './clock.js';
+import { t, lang, alwaysZh } from './i18n.js';
+import { zhOf } from './zh.js';
+import { app } from './state.js';
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -33,7 +36,7 @@ export function closeSheet() {
 }
 
 export function speak(text) {
-  if (!('speechSynthesis' in window)) { toast('這個瀏覽器不支援發音'); return; }
+  if (!('speechSynthesis' in window)) { toast(t('noSpeech')); return; }
   const synth = window.speechSynthesis;
   synth.cancel();
   const u = new SpeechSynthesisUtterance(text);
@@ -49,34 +52,85 @@ if (typeof window !== 'undefined' && 'speechSynthesis' in window) window.speechS
 
 export function relDay(date, today) {
   const n = daysBetween(today, date);
-  if (n < 0) return `逾期 ${-n} 天`;
-  if (n === 0) return '今天';
-  if (n === 1) return '明天';
-  return `${n} 天後（${date.slice(5).replace('-', '/')}）`;
+  if (n < 0) return t('overdue', -n);
+  if (n === 0) return t('today');
+  if (n === 1) return t('tomorrowDay');
+  return t('daysLater', n, date.slice(5).replace('-', '/'));
 }
 
-const POS = {
+const ZH_POS = {
   n: '名詞', v: '動詞', vt: '及物動詞', vi: '不及物動詞', a: '形容詞', adj: '形容詞', s: '形容詞',
   ad: '副詞', adv: '副詞', prep: '介系詞', conj: '連接詞', pron: '代名詞', num: '數詞',
   art: '冠詞', int: '感嘆詞', interj: '感嘆詞', aux: '助動詞', abbr: '縮寫', pl: '複數',
 };
+const EN_POS = { 'n.': 'noun', 'v.': 'verb', 'adj.': 'adjective', 'adv.': 'adverb' };
 
-// 把 ECDICT 解釋「n. 經濟\nv. ...」拆成 [{pos, label, text}]
-export function parseDefs(trans) {
-  return trans.split('\n').map((line) => {
-    const m = line.match(/^([a-z]+)\.\s*(.*)$/);
-    if (m && POS[m[1]]) return { pos: m[1], label: POS[m[1]], text: m[2] };
-    return { pos: '', label: '', text: line };
-  });
+function englishHtml(en) {
+  if (!en) return `<p class="muted">${esc(t('noEnglishDef'))}</p>`;
+  return '<div class="defs">' + en.split('\n').map((line) => {
+    const m = line.match(/^(n\.|v\.|adj\.|adv\.) (.*)$/);
+    return m ? `<span class="pos" title="${EN_POS[m[1]]}">${m[1]}</span>${esc(m[2])}` : esc(line);
+  }).join('\n') + '</div>';
 }
 
-export function defsHtml(entry) {
-  if (!entry) return '<p class="muted">字典裡沒有這個字的解釋。</p>';
-  return '<div class="defs">' + parseDefs(entry[1]).map((d) =>
-    (d.label ? `<span class="pos">${esc(d.pos)}. ${esc(d.label)}</span>` : '') + esc(d.text)).join('\n') + '</div>';
+function chineseHtml(zh) {
+  if (!zh) return `<p class="muted">${esc(t('noDef'))}</p>`;
+  return '<div class="defs zh">' + zh.split('\n').map((line) => {
+    const m = line.match(/^([a-z]+)\.\s*(.*)$/);
+    return m && ZH_POS[m[1]] ? `<span class="pos">${esc(m[1])}. ${ZH_POS[m[1]]}</span>${esc(m[2])}` : esc(line);
+  }).join('\n') + '</div>';
+}
+
+// 字的解釋區塊：英英為主，中文按鈕（或設定為永遠顯示）
+export function wordInfoHtml(lemma, { surface } = {}) {
+  const entry = app.lex.lookup(lemma);
+  const rank = app.lex.rankOf(lemma);
+  const meta = [];
+  if (surface && surface.toLowerCase() !== lemma) meta.push(t('fromText', surface));
+  meta.push(rank ? t('ngslRank', rank) : t('notInNgsl'));
+  return `
+    <div class="word-head">
+      <span class="lemma" lang="en">${esc(lemma)}</span>
+      ${entry?.[0] ? `<span class="phon">/${esc(entry[0])}/</span>` : ''}
+      <button class="secondary say" aria-label="${esc(t('speak'))}">🔊</button>
+    </div>
+    <div class="small muted">${esc(meta.join(' · '))}</div>
+    <div lang="en">${englishHtml(entry?.[1])}</div>
+    <div class="zh-box" hidden></div>
+    <button class="secondary zh-toggle small-btn">${esc(t('showChinese'))}</button>`;
+}
+
+export function bindWordInfo(root, lemma) {
+  root.querySelector('.say').onclick = () => speak(lemma);
+  const box = root.querySelector('.zh-box');
+  const btn = root.querySelector('.zh-toggle');
+  const show = async () => {
+    try {
+      box.innerHTML = chineseHtml(await zhOf(lemma));
+    } catch {
+      box.innerHTML = `<p class="muted">${esc(t('error', 'zh'))}</p>`;
+    }
+    box.hidden = false;
+    btn.textContent = t('hideChinese');
+  };
+  btn.onclick = () => {
+    if (box.hidden) show();
+    else { box.hidden = true; btn.textContent = t('showChinese'); }
+  };
+  if (alwaysZh()) show();
 }
 
 export function highlightSentence(word) {
   const s = word.sentence || '';
   return esc(s.slice(0, word.hlStart)) + '<b>' + esc(s.slice(word.hlStart, word.hlEnd)) + '</b>' + esc(s.slice(word.hlEnd));
+}
+
+export const diffLabel = (key) => t(`diff_${key}`);
+
+// 依介面語言更新標題列與底部分頁
+export function applyChrome() {
+  document.documentElement.lang = lang() === 'zh' ? 'zh-Hant' : 'en';
+  document.title = t('appName');
+  document.querySelector('.brand').textContent = t('appName');
+  document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
 }

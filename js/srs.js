@@ -25,15 +25,17 @@ export function grade(word, g, today) {
   return w;
 }
 
-// 按鈕上顯示的「下次」說明
-export function previewLabel(word, g) {
-  if (g === 'forgot') return '重來';
-  if (g === 'fuzzy') return '明天';
-  return `${INTERVALS[Math.min(word.step, INTERVALS.length - 1)]} 天後`;
+// 按下某個評分後，幾天後再複習（0 = 今天重來）
+export function previewDays(word, g) {
+  if (g === 'forgot') return 0;
+  if (g === 'fuzzy') return 1;
+  return INTERVALS[Math.min(word.step, INTERVALS.length - 1)];
 }
 
+// key: new / learning / done；dots 是學習進度
 export function statusOf(word) {
-  if (!word.reviews) return { key: 'new', label: '新字' };
-  if (word.step >= INTERVALS.length) return { key: 'done', label: '熟練' };
-  return { key: 'learning', label: `學習中 ${'●'.repeat(word.step)}${'○'.repeat(INTERVALS.length - word.step)}` };
+  const dots = `${'●'.repeat(Math.min(word.step, INTERVALS.length))}${'○'.repeat(Math.max(0, INTERVALS.length - word.step))}`;
+  if (!word.reviews) return { key: 'new', dots };
+  if (word.step >= INTERVALS.length) return { key: 'done', dots };
+  return { key: 'learning', dots };
 }

@@ -1,21 +1,21 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1f6f5c">
-  <title>新聞學單字</title>
+  <title>News Vocab</title>
   <link rel="stylesheet" href="css/style.css">
   <!-- 第 2 階段：在這裡加 manifest.json 與 service worker -->
 </head>
 <body>
-  <header class="topbar"><a href="#/" class="brand">新聞學單字</a></header>
-  <main id="app"><p class="muted center pad">載入字表中…</p></main>
+  <header class="topbar"><a href="#/" class="brand">News Vocab</a></header>
+  <main id="app"><p class="muted center pad">Loading…</p></main>
   <nav class="tabbar">
-    <a href="#/" data-tab="home">📰<span>文章</span></a>
-    <a href="#/review" data-tab="review">🃏<span>複習</span><b id="dueBadge" hidden></b></a>
-    <a href="#/words" data-tab="words">📒<span>單字本</span></a>
-    <a href="#/settings" data-tab="settings">⚙️<span>設定</span></a>
+    <a href="#/" data-tab="home">📰<span data-i18n="tabArticles">Read</span></a>
+    <a href="#/review" data-tab="review">🃏<span data-i18n="tabReview">Review</span><b id="dueBadge" hidden></b></a>
+    <a href="#/words" data-tab="words">📒<span data-i18n="tabWords">Words</span></a>
+    <a href="#/settings" data-tab="settings">⚙️<span data-i18n="tabSettings">Settings</span></a>
   </nav>
   <div id="sheet" class="sheet" hidden><div class="sheet-backdrop"></div><div class="sheet-body"></div></div>
   <div id="toast" class="toast" hidden></div>

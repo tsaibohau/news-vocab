@@ -1,42 +1,58 @@
 import * as db from '../db.js';
 import { app, setLevel, refreshBadge } from '../state.js';
 import { today, localDateStr, dayOffset, setDayOffset } from '../clock.js';
-import { toast } from '../ui.js';
+import { esc, toast } from '../ui.js';
+import { t, lang, setLang, alwaysZh, setAlwaysZh } from '../i18n.js';
 import { exportData, validateBackup } from '../actions.js';
 import { LEVELS } from '../text/analyze.js';
+import { applyChrome } from '../ui.js';
 
 export default async function settings(main) {
   const offset = dayOffset();
   main.innerHTML = `
-    <h1>設定</h1>
+    <h1>${esc(t('settings'))}</h1>
     <div class="card">
-      <label for="level">我的程度（這些字算已認識）</label>
-      <select id="level">${LEVELS.map((l) => `<option value="${l}"${l === app.level ? ' selected' : ''}>NGSL 前 ${l} 字</option>`).join('')}</select>
-      <p class="muted small">排名在你的程度之後的 NGSL 字會畫底線。</p>
+      <label for="level">${esc(t('levelLabel'))}</label>
+      <select id="level">${LEVELS.map((l) => `<option value="${l}"${l === app.level ? ' selected' : ''}>${esc(t('levelOption', l))}</option>`).join('')}</select>
+      <p class="muted small">${esc(t('levelHelp'))}</p>
+      <label for="lang">${esc(t('langLabel'))}</label>
+      <select id="lang">
+        <option value="en"${lang() === 'en' ? ' selected' : ''}>English</option>
+        <option value="zh"${lang() === 'zh' ? ' selected' : ''}>中文</option>
+      </select>
+      <label class="row" style="color:var(--ink);margin-top:14px">
+        <input type="checkbox" id="zh" style="width:auto"${alwaysZh() ? ' checked' : ''}> ${esc(t('zhLabel'))}</label>
+      <p class="muted small">${esc(t('zhHelp'))}</p>
     </div>
     <div class="card">
-      <h2 style="margin-top:0">備份</h2>
-      <p class="muted small">資料只存在這個瀏覽器。換手機或清除瀏覽器資料前，請先匯出。</p>
-      <button class="block" id="export">匯出 JSON 備份</button>
-      <label class="btn secondary block" style="color:var(--accent)">匯入 JSON 備份
+      <h2 style="margin-top:0">${esc(t('backup'))}</h2>
+      <p class="muted small">${esc(t('backupHelp'))}</p>
+      <button class="block" id="export">${esc(t('exportJson'))}</button>
+      <label class="btn secondary block" style="color:var(--accent)">${esc(t('importJson'))}
         <input type="file" id="import" accept="application/json,.json" hidden></label>
     </div>
     <div class="card dev">
-      <h2 style="margin-top:0">開發測試用</h2>
-      <p class="small">App 的今天：<b>${today()}</b>${offset ? `（實際 ${localDateStr()}，已往後 ${offset} 天）` : ''}</p>
-      <div class="row"><button id="tomorrow">跳到明天</button>
-      ${offset ? '<button class="secondary" id="reset">回到實際日期</button>' : ''}</div>
+      <h2 style="margin-top:0">${esc(t('devTools'))}</h2>
+      <p class="small">${esc(t('appToday', today()))}${offset ? esc(t('realDate', localDateStr(), offset)) : ''}</p>
+      <div class="row"><button id="tomorrow">${esc(t('jumpTomorrow'))}</button>
+      ${offset ? `<button class="secondary" id="reset">${esc(t('resetDate'))}</button>` : ''}</div>
     </div>
-    <div class="card"><a href="#/about">授權與出處 →</a></div>`;
+    <div class="card"><a href="#/about">${esc(t('licenses'))}</a></div>`;
 
   main.querySelector('#level').onchange = async (e) => {
     await setLevel(Number(e.target.value));
-    toast('已更新程度');
+    toast(t('levelUpdated'));
   };
+  main.querySelector('#lang').onchange = (e) => {
+    setLang(e.target.value);
+    applyChrome();
+    settings(main);
+  };
+  main.querySelector('#zh').onchange = (e) => setAlwaysZh(e.target.checked);
 
   main.querySelector('#tomorrow').onclick = () => {
     setDayOffset(offset + 1);
-    toast(`現在是 ${today()}`);
+    toast(t('nowDate', today()));
     settings(main);
     refreshBadge();
   };
@@ -56,22 +72,23 @@ export default async function settings(main) {
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-    toast(`已匯出 ${data.words.length} 個字、${data.articles.length} 篇文章`);
+    toast(t('exported', data.words.length, data.articles.length));
   };
 
   main.querySelector('#import').onchange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
     try {
-      const data = validateBackup(JSON.parse(await file.text()));
-      if (!confirm(`備份裡有 ${data.words.length} 個字、${data.articles.length} 篇文章。\n匯入會取代目前所有資料，確定嗎？`)) return;
+      let data;
+      try { data = validateBackup(JSON.parse(await file.text())); } catch { throw new Error(t('notBackup')); }
+      if (!confirm(t('confirmImport', data.words.length, data.articles.length))) return;
       await db.replaceAll({ articles: data.articles, words: data.words, meta: data.meta || [] });
       app.level = await db.getMeta('level', 1000);
-      toast('匯入完成');
+      toast(t('imported'));
       refreshBadge();
       settings(main);
     } catch (err) {
-      toast(`匯入失敗：${err.message}`, 4000);
+      toast(t('importFailed', err.message), 4000);
     } finally {
       e.target.value = '';
     }

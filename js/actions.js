@@ -9,7 +9,8 @@ export function newArticleId() {
 }
 
 // 儲存新文章，並幫已收藏的字累計遇見次數。回傳 {article, encountered: [lemma]}
-export async function saveArticle(store, lex, { title, url, text }, today, id = newArticleId()) {
+// extra：每日新聞的 {source, attribution, newsDate}
+export async function saveArticle(store, lex, { title, url, text, ...extra }, today, id = newArticleId()) {
   const article = {
     id,
     title: title.trim() || text.trim().slice(0, 40),
@@ -17,6 +18,7 @@ export async function saveArticle(store, lex, { title, url, text }, today, id = 
     text,
     createdAt: today,
     savedAt: Date.now(),
+    ...extra,
   };
   await store.put('articles', article);
   const { lemmas } = analyze(text, lex, 0);
@@ -67,7 +69,7 @@ export async function exportData(store) {
 
 export function validateBackup(data) {
   if (!data || data.app !== 'news-vocab' || !Array.isArray(data.words) || !Array.isArray(data.articles)) {
-    throw new Error('這不是本 App 的備份檔');
+    throw new Error('not a News Vocab backup');
   }
   return data;
 }

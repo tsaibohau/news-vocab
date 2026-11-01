@@ -1,24 +1,54 @@
-name: 測試並部署到 GitHub Pages
+name: 每日新聞、測試並部署到 GitHub Pages
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 23 * * *'   # 台灣時間每天 07:17
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
+  news:
+    # 只有排程或手動執行時才抓新聞；一般推送直接部署
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 下載政府開放資料新聞
+        run: node scripts/fetch_news.mjs
+      - name: 有新資料就提交
+        run: |
+          git add data/news
+          if git diff --cached --quiet; then
+            echo "沒有新文章"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "每日新聞 $(TZ=Asia/Taipei date +%F)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
   test:
+    needs: news
+    if: always() && (needs.news.result == 'success' || needs.news.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -26,18 +56,25 @@ jobs:
 
   deploy:
     needs: test
+    if: always() && needs.test.result == 'success'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - name: 組出網站檔案
         run: |
-          mkdir _site
+          mkdir -p _site/data
           cp -r index.html css js _site/
-          mkdir _site/data
           cp data/*.json _site/data/
+          cp -r data/news _site/data/news
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
