@@ -17,7 +17,7 @@ body {
   padding-bottom: calc(var(--tabbar) + env(safe-area-inset-bottom) + 16px);
 }
 a { color: var(--accent); }
-.topbar { position: sticky; top: 0; z-index: 5; background: var(--accent); padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top)); }
+.topbar { position: sticky; top: 0; z-index: 5; background: #1f6f5c; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top)); }
 .brand { color: #fff; text-decoration: none; font-weight: 700; font-size: 18px; }
 main { max-width: 720px; margin: 0 auto; padding: 12px; }
 h1 { font-size: 20px; margin: 8px 0 12px; }
