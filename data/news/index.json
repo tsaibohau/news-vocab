@@ -23,6 +23,36 @@
  },
  "items": [
   {
+   "id": "ey-d7e1e91e84",
+   "source": "ey",
+   "title": "Premier highlights progress of two-pronged tourism initiative",
+   "date": "2026-11-05",
+   "words": 237,
+   "ngsl": 87.4,
+   "known": {
+    "500": 54.9,
+    "1000": 67.5,
+    "1500": 74.8,
+    "2000": 81.1,
+    "2500": 82
+   }
+  },
+  {
+   "id": "ey-4928b015e9",
+   "source": "ey",
+   "title": "Premier praises coast guard’s commitment to national sovereignty and security",
+   "date": "2026-11-05",
+   "words": 320,
+   "ngsl": 85.1,
+   "known": {
+    "500": 54.2,
+    "1000": 66.2,
+    "1500": 71.3,
+    "2000": 76.7,
+    "2500": 81.1
+   }
+  },
+  {
    "id": "ey-b9b0052fd8",
    "source": "ey",
    "title": "Technology and culture expo fosters innovation, cross-sector collaboration",
@@ -935,51 +965,6 @@
     "1500": 68.1,
     "2000": 72.6,
     "2500": 77.9
-   }
-  },
-  {
-   "id": "mofa-f3d496fbd2",
-   "source": "mofa",
-   "title": "MOFA expresses deepest condolences on passing of Marshall Islands Iroijlaplap Michael Kabua",
-   "date": "2026-08-12",
-   "words": 196,
-   "ngsl": 92.3,
-   "known": {
-    "500": 70.5,
-    "1000": 83.3,
-    "1500": 87.8,
-    "2000": 90.4,
-    "2500": 91.7
-   }
-  },
-  {
-   "id": "mofa-93bae82b77",
-   "source": "mofa",
-   "title": "MOFA response to China’s unilateral announcement of joint exercises with Indonesian navy in waters off Taiwan’s east coast",
-   "date": "2026-08-12",
-   "words": 165,
-   "ngsl": 82,
-   "known": {
-    "500": 54.7,
-    "1000": 64.7,
-    "1500": 70,
-    "2000": 79.3,
-    "2500": 81.3
-   }
-  },
-  {
-   "id": "mofa-64343a2eab",
-   "source": "mofa",
-   "title": "MOFA welcomes joint statement by US and 40 other countries expressing concern over recent missile test in Pacific",
-   "date": "2026-08-12",
-   "words": 354,
-   "ngsl": 86.7,
-   "known": {
-    "500": 63.3,
-    "1000": 75.2,
-    "1500": 81.3,
-    "2000": 84.7,
-    "2500": 85.4
    }
   }
  ]
