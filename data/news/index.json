@@ -23,6 +23,81 @@
  },
  "items": [
   {
+   "id": "mofa-c70d1c89ac",
+   "source": "mofa",
+   "title": "MOFA response to IPAC statement warning of threat of transnational repression by China",
+   "date": "2026-11-08",
+   "words": 327,
+   "ngsl": 86.1,
+   "known": {
+    "500": 59.2,
+    "1000": 70,
+    "1500": 74.2,
+    "2000": 80.1,
+    "2500": 81.5
+   }
+  },
+  {
+   "id": "mofa-952e88d808",
+   "source": "mofa",
+   "title": "MOFA solemnly refutes false claims regarding ROC (Taiwan) in China-Gabon joint statement",
+   "date": "2026-11-07",
+   "words": 259,
+   "ngsl": 82.9,
+   "known": {
+    "500": 63.5,
+    "1000": 72.5,
+    "1500": 77.3,
+    "2000": 80.6,
+    "2500": 82.9
+   }
+  },
+  {
+   "id": "mofa-126865f707",
+   "source": "mofa",
+   "title": "Taiwan delegation attends 25th Berlin Security Conference, showcasing nation’s capabilities in diplomacy, defense, and whole-of-society resilience",
+   "date": "2026-11-07",
+   "words": 620,
+   "ngsl": 88.3,
+   "known": {
+    "500": 57.9,
+    "1000": 70,
+    "1500": 79.3,
+    "2000": 83.9,
+    "2500": 86.1
+   }
+  },
+  {
+   "id": "mofa-af4b5e5c7a",
+   "source": "mofa",
+   "title": "ROC (Taiwan) and Philippines sign updated MOU on direct hiring",
+   "date": "2026-11-06",
+   "words": 184,
+   "ngsl": 90.2,
+   "known": {
+    "500": 65.9,
+    "1000": 70.5,
+    "1500": 78.8,
+    "2000": 84.8,
+    "2500": 88.6
+   }
+  },
+  {
+   "id": "mofa-212269ede7",
+   "source": "mofa",
+   "title": "ROC (Taiwan) announces closure of mission in Papua New Guinea, comprehensive adjustment of bilateral cooperation, and reallocation of resources to deepen partnerships with diplomatic allies and like-minded countries",
+   "date": "2026-11-06",
+   "words": 826,
+   "ngsl": 86.7,
+   "known": {
+    "500": 57.7,
+    "1000": 70.7,
+    "1500": 78.3,
+    "2000": 81.6,
+    "2500": 83.8
+   }
+  },
+  {
    "id": "ey-d7e1e91e84",
    "source": "ey",
    "title": "Premier highlights progress of two-pronged tourism initiative",
@@ -53,6 +128,66 @@
    }
   },
   {
+   "id": "mofa-00f6c95793",
+   "source": "mofa",
+   "title": "MOFA reiterates that the ROC (Taiwan) enjoys right to equal participation in APEC; calls on China to uphold its commitments as 2026 host economy",
+   "date": "2026-11-04",
+   "words": 235,
+   "ngsl": 89.4,
+   "known": {
+    "500": 66.8,
+    "1000": 73.4,
+    "1500": 80.9,
+    "2000": 85.4,
+    "2500": 86.4
+   }
+  },
+  {
+   "id": "mofa-7fbfb779f6",
+   "source": "mofa",
+   "title": "MOFA solemnly refutes false claims regarding the ROC (Taiwan) in China-Oman joint statement",
+   "date": "2026-11-02",
+   "words": 245,
+   "ngsl": 82.1,
+   "known": {
+    "500": 59.7,
+    "1000": 67.9,
+    "1500": 73.5,
+    "2000": 77.6,
+    "2500": 80.6
+   }
+  },
+  {
+   "id": "mofa-6a47d9be9d",
+   "source": "mofa",
+   "title": "MOFA welcomes reaffirmation of importance of peace and stability across Taiwan Strait by US, Japan, and ROK foreign ministers",
+   "date": "2026-11-02",
+   "words": 266,
+   "ngsl": 87.7,
+   "known": {
+    "500": 57.1,
+    "1000": 68,
+    "1500": 80.3,
+    "2000": 81.8,
+    "2500": 82.8
+   }
+  },
+  {
+   "id": "mofa-88d4b6c6a0",
+   "source": "mofa",
+   "title": "MOFA welcomes Japan-Germany joint leaders’ statement reaffirming importance of peace and stability across the Taiwan Strait",
+   "date": "2026-10-29",
+   "words": 372,
+   "ngsl": 85.4,
+   "known": {
+    "500": 57.3,
+    "1000": 70.6,
+    "1500": 77.1,
+    "2000": 83.6,
+    "2500": 83.9
+   }
+  },
+  {
    "id": "ey-b9b0052fd8",
    "source": "ey",
    "title": "Technology and culture expo fosters innovation, cross-sector collaboration",
@@ -80,6 +215,21 @@
     "1500": 82.9,
     "2000": 87.4,
     "2500": 88.3
+   }
+  },
+  {
+   "id": "mofa-608419741e",
+   "source": "mofa",
+   "title": "MOFA thanks Formosa Club for again holding annual conference in Taiwan",
+   "date": "2026-10-25",
+   "words": 663,
+   "ngsl": 88.7,
+   "known": {
+    "500": 61.1,
+    "1000": 71.1,
+    "1500": 78.7,
+    "2000": 83.6,
+    "2500": 85.5
    }
   },
   {
@@ -260,6 +410,21 @@
     "1500": 77.9,
     "2000": 82.6,
     "2500": 87.2
+   }
+  },
+  {
+   "id": "mofa-f56d97e768",
+   "source": "mofa",
+   "title": "2026 National Day reception held at Taipei Guest House; attended by Eswatini King Mswati III and other foreign dignitaries",
+   "date": "2026-10-11",
+   "words": 472,
+   "ngsl": 80,
+   "known": {
+    "500": 55.4,
+    "1000": 64.3,
+    "1500": 70.6,
+    "2000": 76.6,
+    "2500": 78.3
    }
   },
   {
@@ -935,36 +1100,6 @@
     "1500": 75.8,
     "2000": 81.5,
     "2500": 84.3
-   }
-  },
-  {
-   "id": "mofa-f0ee7ab974",
-   "source": "mofa",
-   "title": "MOFA urges nationals to postpone tourism and business travel to Uganda",
-   "date": "2026-08-13",
-   "words": 394,
-   "ngsl": 91.1,
-   "known": {
-    "500": 59.8,
-    "1000": 74.4,
-    "1500": 81,
-    "2000": 86.3,
-    "2500": 89.9
-   }
-  },
-  {
-   "id": "ey-abc24b2bb0",
-   "source": "ey",
-   "title": "Ocean development plan to expand marine industries, sustainable governance",
-   "date": "2026-08-13",
-   "words": 290,
-   "ngsl": 80.2,
-   "known": {
-    "500": 45.2,
-    "1000": 63.9,
-    "1500": 68.1,
-    "2000": 72.6,
-    "2500": 77.9
    }
   }
  ]
