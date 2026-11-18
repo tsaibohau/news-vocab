@@ -23,6 +23,36 @@
  },
  "items": [
   {
+   "id": "ey-6d0e429169",
+   "source": "ey",
+   "title": "Expanded testing capacity bolsters drug enforcement and public safety",
+   "date": "2026-11-12",
+   "words": 199,
+   "ngsl": 84.8,
+   "known": {
+    "500": 52.7,
+    "1000": 64.1,
+    "1500": 75,
+    "2000": 78.3,
+    "2500": 82.1
+   }
+  },
+  {
+   "id": "ey-c805b6b9dd",
+   "source": "ey",
+   "title": "Thorough preparations to ensure orderly elections and social stability",
+   "date": "2026-11-12",
+   "words": 202,
+   "ngsl": 83.7,
+   "known": {
+    "500": 50,
+    "1000": 66.8,
+    "1500": 73.4,
+    "2000": 77.2,
+    "2500": 79.9
+   }
+  },
+  {
    "id": "mofa-c70d1c89ac",
    "source": "mofa",
    "title": "MOFA response to IPAC statement warning of threat of transnational repression by China",
