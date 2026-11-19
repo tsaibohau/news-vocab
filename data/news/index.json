@@ -1071,51 +1071,6 @@
     "2000": 73.8,
     "2500": 74.8
    }
-  },
-  {
-   "id": "ey-04c8d9a035",
-   "source": "ey",
-   "title": "After deep cuts, Premier urges more responsible budget review by Legislature",
-   "date": "2026-08-20",
-   "words": 208,
-   "ngsl": 88.8,
-   "known": {
-    "500": 62.6,
-    "1000": 76.5,
-    "1500": 83.4,
-    "2000": 87.7,
-    "2500": 88.2
-   }
-  },
-  {
-   "id": "ey-410e943fa4",
-   "source": "ey",
-   "title": "Executive Yuan unveils administrative plan for 2027",
-   "date": "2026-08-20",
-   "words": 223,
-   "ngsl": 88.1,
-   "known": {
-    "500": 58.2,
-    "1000": 68.7,
-    "1500": 75.1,
-    "2000": 81.6,
-    "2500": 86.6
-   }
-  },
-  {
-   "id": "mofa-9343e556e6",
-   "source": "mofa",
-   "title": "MOFA response to remarks by China’s Taiwan Affairs Office on Uganda’s recent obstruction of entry by Taiwanese citizens, belittling Taiwan’s sovereignty",
-   "date": "2026-08-20",
-   "words": 195,
-   "ngsl": 82.6,
-   "known": {
-    "500": 58.4,
-    "1000": 67.7,
-    "1500": 75.2,
-    "2000": 78.3,
-    "2500": 81.4
-   }
   }
  ]
 }
