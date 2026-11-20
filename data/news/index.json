@@ -1056,21 +1056,6 @@
     "2000": 80.2,
     "2500": 84.4
    }
-  },
-  {
-   "id": "mofa-f1a753e3d6",
-   "source": "mofa",
-   "title": "MOFA response to Etihad Airways in-flight announcement downgrading Taiwan’s sovereign status",
-   "date": "2026-08-21",
-   "words": 141,
-   "ngsl": 75.7,
-   "known": {
-    "500": 55.1,
-    "1000": 59.8,
-    "1500": 68.2,
-    "2000": 73.8,
-    "2500": 74.8
-   }
   }
  ]
 }
