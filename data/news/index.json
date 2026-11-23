@@ -23,6 +23,36 @@
  },
  "items": [
   {
+   "id": "mofa-51f0673297",
+   "source": "mofa",
+   "title": "Foreign Minister Lin concludes Houston visit, advances symbiotic Taiwan-US economic and trade partnership",
+   "date": "2026-11-18",
+   "words": 544,
+   "ngsl": 90.6,
+   "known": {
+    "500": 64.4,
+    "1000": 76,
+    "1500": 83.1,
+    "2000": 86.5,
+    "2500": 88.1
+   }
+  },
+  {
+   "id": "mofa-2087ef2a0e",
+   "source": "mofa",
+   "title": "MOFA thanks leaders of five allied nations for supporting Taiwan’s participation at COP31",
+   "date": "2026-11-14",
+   "words": 422,
+   "ngsl": 89.8,
+   "known": {
+    "500": 62.2,
+    "1000": 71.2,
+    "1500": 76.7,
+    "2000": 83.4,
+    "2500": 87.5
+   }
+  },
+  {
    "id": "ey-6d0e429169",
    "source": "ey",
    "title": "Expanded testing capacity bolsters drug enforcement and public safety",
@@ -35,6 +65,21 @@
     "1500": 75,
     "2000": 78.3,
     "2500": 82.1
+   }
+  },
+  {
+   "id": "mofa-832e05a1b6",
+   "source": "mofa",
+   "title": "MOFA welcomes joint statement by G7 foreign ministers reiterating importance of maintaining peace and stability across Taiwan Strait",
+   "date": "2026-11-12",
+   "words": 348,
+   "ngsl": 89.1,
+   "known": {
+    "500": 59.2,
+    "1000": 69.4,
+    "1500": 79.6,
+    "2000": 84.9,
+    "2500": 86.5
    }
   },
   {
