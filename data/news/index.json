@@ -23,6 +23,21 @@
  },
  "items": [
   {
+   "id": "ey-15cb925e8c",
+   "source": "ey",
+   "title": "Amendments to two employment laws will strengthen family support from 2027",
+   "date": "2026-11-19",
+   "words": 320,
+   "ngsl": 87.8,
+   "known": {
+    "500": 69.2,
+    "1000": 76.6,
+    "1500": 81.4,
+    "2000": 84.1,
+    "2500": 85.4
+   }
+  },
+  {
    "id": "mofa-51f0673297",
    "source": "mofa",
    "title": "Foreign Minister Lin concludes Houston visit, advances symbiotic Taiwan-US economic and trade partnership",
@@ -1070,36 +1085,6 @@
     "1500": 80.3,
     "2000": 83.9,
     "2500": 86.8
-   }
-  },
-  {
-   "id": "mofa-dbfd414783",
-   "source": "mofa",
-   "title": "MOFA strongly refutes false claims regarding Taiwan in joint statement between China and Jordan",
-   "date": "2026-08-25",
-   "words": 251,
-   "ngsl": 85.6,
-   "known": {
-    "500": 61.6,
-    "1000": 72.2,
-    "1500": 76.9,
-    "2000": 81,
-    "2500": 84.3
-   }
-  },
-  {
-   "id": "mofa-1d4920f060",
-   "source": "mofa",
-   "title": "Taiwan donates a further US$2 million to enhance fisheries capacity of Pacific small island developing states",
-   "date": "2026-08-25",
-   "words": 387,
-   "ngsl": 87,
-   "known": {
-    "500": 59.6,
-    "1000": 68.1,
-    "1500": 76.1,
-    "2000": 80.2,
-    "2500": 84.4
    }
   }
  ]
