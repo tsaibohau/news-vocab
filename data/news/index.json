@@ -23,6 +23,36 @@
  },
  "items": [
   {
+   "id": "mofa-1e8a09e8f1",
+   "source": "mofa",
+   "title": "Foreign Minister Lin opens Allies Prosperity Trade Office",
+   "date": "2026-11-21",
+   "words": 533,
+   "ngsl": 90.8,
+   "known": {
+    "500": 58.5,
+    "1000": 71.6,
+    "1500": 78.9,
+    "2000": 82.8,
+    "2500": 87.8
+   }
+  },
+  {
+   "id": "mofa-d42c7b8d54",
+   "source": "mofa",
+   "title": "MOFA response to false claims in Chinese state media regarding meeting between leaders of China and Indonesia",
+   "date": "2026-11-20",
+   "words": 222,
+   "ngsl": 85.8,
+   "known": {
+    "500": 65,
+    "1000": 76,
+    "1500": 79.2,
+    "2000": 81.4,
+    "2500": 84.2
+   }
+  },
+  {
    "id": "ey-15cb925e8c",
    "source": "ey",
    "title": "Amendments to two employment laws will strengthen family support from 2027",
@@ -1070,21 +1100,6 @@
     "1500": 83.7,
     "2000": 87.2,
     "2500": 89.2
-   }
-  },
-  {
-   "id": "mofa-37cba2fb91",
-   "source": "mofa",
-   "title": "Foreign Minister Lin to lead delegation to Palau for PIF-related events, deepening Taiwan’s relations with Pacific partners",
-   "date": "2026-08-26",
-   "words": 606,
-   "ngsl": 89.4,
-   "known": {
-    "500": 62.2,
-    "1000": 72.8,
-    "1500": 80.3,
-    "2000": 83.9,
-    "2500": 86.8
    }
   }
  ]
