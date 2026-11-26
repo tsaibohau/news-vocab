@@ -1071,36 +1071,6 @@
     "2000": 86,
     "2500": 88.3
    }
-  },
-  {
-   "id": "mofa-d0804c3863",
-   "source": "mofa",
-   "title": "MOFA invites foreign embassies and missions to Zhongyuan Pudu ceremony for first time, leading joint prayers for world peace and shared prosperity",
-   "date": "2026-08-27",
-   "words": 276,
-   "ngsl": 87.7,
-   "known": {
-    "500": 59.3,
-    "1000": 69.1,
-    "1500": 78,
-    "2000": 80.9,
-    "2500": 85.2
-   }
-  },
-  {
-   "id": "ey-f189e0e6b1",
-   "source": "ey",
-   "title": "Private, public sectors join hands to celebrate Armed Forces Day",
-   "date": "2026-08-27",
-   "words": 222,
-   "ngsl": 91.6,
-   "known": {
-    "500": 65.5,
-    "1000": 79.3,
-    "1500": 83.7,
-    "2000": 87.2,
-    "2500": 89.2
-   }
   }
  ]
 }
